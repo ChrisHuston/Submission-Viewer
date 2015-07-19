@@ -1,0 +1,21 @@
+<div ng-show="user.priv_level>1" class="form-inline" style="margin-top: 10px; margin-bottom: 10px;">
+    <button style="margin-right: 10px;" class="btn btn-primary" ng-click="getSections()">Get Sections {{user.sections.length}}</button>
+    <button style="margin-right: 10px;" class="btn btn-primary" ng-click="getStudents()">Get Students {{user.students.length}}</button>
+    <button class="btn btn-primary" ng-click="getCanvasAssignments()">Get Assignments {{user.assignments.length}}</button>
+</div>
+<div class="form-inline" style="margin-top: 10px; margin-bottom: 10px;">
+    <select ng-show="user.assignments.length>0"  class="form-control" ng-model="user.selectedAssignment" ng-change="getSubmissions()" ng-options="assignment as assignment.assignment_name for assignment in user.assignments">
+        <option value="">-- Select Assignment --</option>
+    </select>
+
+    <label style="display: inline-block; margin-left: 10px;" ng-show="user.priv_level>1">
+        <input type="checkbox" ng-model="user.selectedAssignment.public"
+               ng-true-value="'1'" ng-false-value="'0'"
+                ng-change="togglePublic()"> Public</label>
+    <label style="display: inline-block; margin-left: 10px;" ng-show="user.priv_level>1">
+    <input type="checkbox" ng-model="user.selectedAssignment.is_group"
+           ng-true-value="'1'" ng-false-value="'0'"
+           ng-change="toggleIsGroup()"> Group</label>
+
+</div>
+<div ui-grid="gridOptions" ui-grid-auto-resize class="kGrid"></div>
